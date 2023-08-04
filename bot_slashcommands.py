@@ -10,6 +10,7 @@ from discord.ext import commands
 from functions import command_log, error_log, get_quote
 from views import *
 
+
 class Slashcommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -31,7 +32,16 @@ class Slashcommands(commands.Cog):
     @commands.slash_command(alias=["hi"])
     async def hallo(self, ctx):
         """Begrüßt dich"""
-        hallo = ["Hi", "Moin Moin", "Hallo du Lappen", "Servusle", "Guten Tag", "hello", "Grüß Gott","Einen wunderschönen guten Tag, meine Damen und Herren"]
+        hallo = [
+            "Hi",
+            "Moin Moin",
+            "Hallo du Lappen",
+            "Servusle",
+            "Guten Tag",
+            "hello",
+            "Grüß Gott",
+            "Einen wunderschönen guten Tag, meine Damen und Herren",
+        ]
         await ctx.respond(rnd.choice(hallo))
         command_log(ctx, "/hallo")
 
@@ -39,7 +49,16 @@ class Slashcommands(commands.Cog):
     @commands.slash_command()
     async def hi(self, ctx):
         """Begrüßt dich"""
-        hallo = ["Hi", "Moin Moin", "Hallo du Lappen", "Servusle", "Guten Tag", "hello", "Grüß Gott","Einen wunderschönen guten Tag, meine Damen und Herren"]
+        hallo = [
+            "Hi",
+            "Moin Moin",
+            "Hallo du Lappen",
+            "Servusle",
+            "Guten Tag",
+            "hello",
+            "Grüß Gott",
+            "Einen wunderschönen guten Tag, meine Damen und Herren",
+        ]
         await ctx.respond(rnd.choice(hallo))
         command_log(ctx, "/hi")
 
@@ -65,7 +84,7 @@ class Slashcommands(commands.Cog):
     @commands.slash_command(aliases=["steak"])
     async def schnitzel(self, ctx):
         """Was geht über ein Schnitzel?"""
-        steak = '\N{CUT OF MEAT}'
+        steak = "\N{CUT OF MEAT}"
         message = f"{8 * (steak + ' ')} \nEs geht nichts über ein saftig-knaftiges Schnitzel! \n{8 * (steak + ' ')}"
         await ctx.respond(message)
         command_log(ctx, "/schnitzel")
@@ -81,14 +100,17 @@ class Slashcommands(commands.Cog):
     @commands.slash_command()
     async def wildschwein(self, ctx):
         """Gibt dir einen guten Ratschlag für dein Leben \N{BOAR}"""
-        await ctx.respond("Pass auf Wildschweine auf, sie können zu unliebsamen Begegnungen führen")
+        await ctx.respond(
+            "Pass auf Wildschweine auf, sie können zu unliebsamen Begegnungen führen"
+        )
         command_log(ctx, "/wildschwein")
 
     # --- CRYPTO ---
     @commands.slash_command()
     async def crypto(self, ctx):
         """Bietet dir die Möglichkeit dieses Projekt zu unterstützen"""
-        crypto = {"Bitcoin": "bc1qmkm5rm2f4dylcf3c5kr630940gtntf9pf9dcwt",
+        crypto = {
+            "Bitcoin": "bc1qmkm5rm2f4dylcf3c5kr630940gtntf9pf9dcwt",
             "Bitcoin Cash": "ltc1qjtdl7ylksmax6zutwvrqhyl7mje56ygck5x6ra",
             "Ethereum": "0x885eE1D7a3bFc1bE0f1c49dD2D0f4f8A43Bb164D",
             "Litecoin": "ltc1qjtdl7ylksmax6zutwvrqhyl7mje56ygck5x6ra",
@@ -97,10 +119,11 @@ class Slashcommands(commands.Cog):
             "Solana": "8KeYwoY8BBumc1qysGSJsyVxc7wLPbn6G8NufzGh67DH",
             "Tezos": "tz1heKjcrTucWJiUMevttkqTTLeRBMkurvCy",
             "Tron": "TUoMo5jJZe9PQYgaM5Ks3nGgVE5XCGhocH",
-            "Waves": "3P7AXSsV2CiXjsUjvbAs4W2eb6xqzqh2hZg"}
+            "Waves": "3P7AXSsV2CiXjsUjvbAs4W2eb6xqzqh2hZg",
+        }
         answer = ""
         for x in crypto:
-            answer +=  f"{x}  >>  {crypto[x]}\n"
+            answer += f"{x}  >>  {crypto[x]}\n"
 
         await ctx.respond(answer)
         command_log(ctx, "/crypto")
@@ -117,26 +140,30 @@ class Slashcommands(commands.Cog):
             "Jetzt komm ich hier hoch, jetzt guck dir die Scheiße an. ",
             "Ham die Leute einfach keine Lust hier, oder wat?",
             "Du musst ma fragen, ob die... weiß ich nicht soll'n wir nach Hause fahr'n, oder wat?",
-            "Is doch lächerlich, oder?", "Wissen doch, was so'n Kran wiegt, oder?",
+            "Is doch lächerlich, oder?",
+            "Wissen doch, was so'n Kran wiegt, oder?",
             "Junge, jetzt krieg ich jetzt langsam hier... werd ich aber n bisschen wild hier, langsam.",
             "JETZT REICHT'S MIR LANGSAM! HAM DIE KEIN BANDMASS WAT ACHT METER LANG IS!?",
             "Junge, Junge, Junge, Junge, Junge, Junge, Junge, Junge, Junge, Junge!",
-            "Oach Mensch, hör auf!", "Paar Nichtskönner, originale Nichtskönner",
+            "Oach Mensch, hör auf!",
+            "Paar Nichtskönner, originale Nichtskönner",
             "Das is hier ne Baustelle für Vollidioten. Genau solche Vollidioten wie diese Norweger sind. VOLLIDIOTEN. Darum sind die auch nicht in der EU, weil die am Leben vorbeilaufen, diese Spinnerbande.",
-            "Gar nichts zusammenpacken, Ende!", "Können noch nicht mal BANDMASS halten!"]
+            "Gar nichts zusammenpacken, Ende!",
+            "Können noch nicht mal BANDMASS halten!",
+        ]
         answer = kranplatz[rnd.randint(0, len(kranplatz) - 1)]
 
         await ctx.respond(answer)
         command_log(ctx, "/kran")
 
-    #--- MNF ---
+    # --- MNF ---
     # TODO: MNF
 
     # --- RANDOM ---
     @commands.slash_command()
     async def random(self, ctx):
         """Erhalte eine zufällig Nachricht aus der Datenbank"""
-        lines =  open('random.txt', 'r', encoding='utf-8').read().splitlines()
+        lines = open("random.txt", "r", encoding="utf-8").read().splitlines()
         line_number = rnd.randint(0, len(lines))
         random_line = lines[line_number]
 
@@ -153,7 +180,9 @@ class Slashcommands(commands.Cog):
         random_message = f"{message} ~ {str(ctx.author)[:-5]} ({date})"
         with open("random.txt", "a") as file:
             file.write(f"\n{random_message}")
-        await ctx.respond(f"Du hast der Datenbank folgende Nachricht hinzugefügt: \n{message}")
+        await ctx.respond(
+            f"Du hast der Datenbank folgende Nachricht hinzugefügt: \n{message}"
+        )
         command_log(ctx, "/add", f"and added '{message}'")
 
     # --- JOIN ---
@@ -175,13 +204,19 @@ class Slashcommands(commands.Cog):
         """Ein Junge mit einer gottesgleichen Stimme trällert dir ein Liedchen"""
 
         dotenv.load_dotenv()
-        ffmpeg =  os.environ.get("ffmpeg")
+        ffmpeg = os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
-            await ctx.respond("Du befindest dich nicht in einem Voice-Channel auf diesem Server")
+            await ctx.respond(
+                "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
+            )
             command_log(ctx, "/josua", "but no voice channel was found")
-            error_log(ctx, "/josua", f"Could not find {ctx.author}s voice channel on {ctx.guild}")
+            error_log(
+                ctx,
+                "/josua",
+                f"Could not find {ctx.author}s voice channel on {ctx.guild}",
+            )
             return
 
         voice_channel = ctx.author.voice.channel
@@ -220,13 +255,19 @@ class Slashcommands(commands.Cog):
         """kurze, aber feine Party"""
 
         dotenv.load_dotenv()
-        ffmpeg =  os.environ.get("ffmpeg")
+        ffmpeg = os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
-            await ctx.respond("Du befindest dich nicht in einem Voice-Channel auf diesem Server")
+            await ctx.respond(
+                "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
+            )
             command_log(ctx, "/hardstyle", "but no voice channel was found")
-            error_log(ctx, "/hardstyle", f"Could not find {ctx.author}s voice channel on {ctx.guild}")
+            error_log(
+                ctx,
+                "/hardstyle",
+                f"Could not find {ctx.author}s voice channel on {ctx.guild}",
+            )
             return
 
         voice_channel = ctx.author.voice.channel
@@ -237,7 +278,11 @@ class Slashcommands(commands.Cog):
         voice = ctx.guild.voice_client
 
         try:
-            voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source="sounds/lebendiger_fisch.mp3"))
+            voice.play(
+                discord.FFmpegPCMAudio(
+                    executable=ffmpeg, source="sounds/lebendiger_fisch.mp3"
+                )
+            )
         except:
             await ctx.respond("Whoops, da gab es wohl einen Fehler D:")
             error_log(ctx, "/hardstyle", "Couldn't play sound")
@@ -253,18 +298,22 @@ class Slashcommands(commands.Cog):
         """Gib die Sprache als optionales Argument ein"""
 
         dotenv.load_dotenv()
-        ffmpeg =  os.environ.get("ffmpeg")
+        ffmpeg = os.environ.get("ffmpeg")
 
         tts = gtts.gTTS(message, lang=language.lower())
-        name = ''.join(rnd.choice(string.ascii_letters) for i in range(12))
-        soundfile = f'sounds/random_sounds/{name}.mp3'
+        name = "".join(rnd.choice(string.ascii_letters) for i in range(12))
+        soundfile = f"sounds/random_sounds/{name}.mp3"
         tts.save(soundfile)
 
         is_voice = ctx.author.voice
         if is_voice == None:
             await ctx.respond("Du befindest dich nicht in einem Voice-Channel")
             command_log(ctx, "/read", "but no voice channel was found")
-            error_log(ctx, "/read", f"Could not join {ctx.author}s voice channel on {ctx.guild}")
+            error_log(
+                ctx,
+                "/read",
+                f"Could not join {ctx.author}s voice channel on {ctx.guild}",
+            )
             return
 
         voice_channel = ctx.author.voice.channel

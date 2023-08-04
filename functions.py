@@ -4,6 +4,7 @@ import datetime
 from flask import Flask
 from threading import Thread
 
+
 # --- READY ---
 def ready(bot):
     print(f"====================== {bot.user} is ready ======================")
@@ -11,6 +12,7 @@ def ready(bot):
     date = str(datetime.datetime.now())[:-7]
     with open("log.txt", "a") as logfile:
         logfile.write(f"\n[{date}] reboot successfull")
+
 
 # --- GET QUOTE ---
 def get_quote():
@@ -20,8 +22,9 @@ def get_quote():
     quote = json_data[0]["q"] + "\n ~ " + author
     return (quote, author)
 
+
 # --- COMMAND LOG ---
-def command_log(message, command, special_message = None):
+def command_log(message, command, special_message=None):
     author = message.author
     channel = message.channel.name
     server = message.channel.guild.name
@@ -36,6 +39,7 @@ def command_log(message, command, special_message = None):
     with open("log.txt", "a") as logfile:
         logfile.write("\n" + log_msg)
 
+
 # --- ERORR LOG ---
 def error_log(message, command, error_message):
     author = message.author
@@ -48,17 +52,17 @@ def error_log(message, command, error_message):
 
 
 # --- KEEP ALIVE ---
-app = Flask('')
+app = Flask("")
 
-@app.route('/')
+@app.route("/")
 def home():
-  # file =  open('index.html', 'r')
-  website  = open('index.html', 'r').read()
-  return website
+    # file =  open('index.html', 'r')
+    website = open("index.html", "r").read()
+    return website
 
 def run():
-  app.run(host='0.0.0.0', port=7777)
+    app.run(host="0.0.0.0", port=7777)
 
 def keep_alive():
-  t = Thread(target=run)
-  t.start()
+    t = Thread(target=run)
+    t.start()

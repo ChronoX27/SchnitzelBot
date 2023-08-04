@@ -21,7 +21,16 @@ class Commands(commands.Cog):
     @commands.command(aliases=["hi"])
     async def hallo(self, ctx):
         """Begrüßt dich"""
-        hallo = ["Hi", "Moin Moin", "Hallo du Lappen", "Servusle", "Guten Tag", "hello", "Grüß Gott","Einen wunderschönen guten Tag, meine Damen und Herren"]
+        hallo = [
+            "Hi",
+            "Moin Moin",
+            "Hallo du Lappen",
+            "Servusle",
+            "Guten Tag",
+            "hello",
+            "Grüß Gott",
+            "Einen wunderschönen guten Tag, meine Damen und Herren",
+        ]
         await ctx.send(rnd.choice(hallo))
         command_log(ctx, "hi")
 
@@ -33,10 +42,11 @@ class Commands(commands.Cog):
         command_log(ctx, "test")
 
     # --- HELP ---
-    @commands.command()#aliases=["help"])
+    @commands.command()  # aliases=["help"])
     async def hilfe(self, ctx):
         """Du erhältst Hilfe"""
-        commands = {".hi": "Begrüßt dich",
+        commands = {
+            ".hi": "Begrüßt dich",
             ".schnitzel": "Du bekommst ein Schnizel",
             ".help": "Du bekommst diese Nachricht",
             ".invite": "Du erhältst den Einladungslink zu diesem Bot",
@@ -48,7 +58,8 @@ class Commands(commands.Cog):
             ".crypto": "Bietet dir die Möglichkeit dieses Projekt zu unterstützen",
             ".mnf a b c": "Löst die quadratische Gleichung mit a*x² + b*x + c = 0",
             ".join": "Der Schnitzelbot kommt in deinen Voicechat",
-            ".kran": "Lässt den Meister sprechen"}
+            ".kran": "Lässt den Meister sprechen",
+        }
         answer = ""
         for x in commands:
             answer = answer + x + "  -   " + commands[x] + "\n"
@@ -75,7 +86,7 @@ class Commands(commands.Cog):
     @commands.command(aliases=["steak"])
     async def schnitzel(self, ctx):
         """Was geht über ein Schnitzel?"""
-        steak = '\N{CUT OF MEAT}'
+        steak = "\N{CUT OF MEAT}"
         message = f"{3 * (steak + ' ' )} SCHNITZEL HYPE {3 *('' + steak)} \nEs geht nichts über ein saftig-knaftiges Schnitzel! \n{3 * (steak + ' ' )} SCHNITZEL HYPE {3 *('' + steak)}"
         await ctx.send(message)
         command_log(ctx, "schnitzel")
@@ -91,14 +102,17 @@ class Commands(commands.Cog):
     @commands.command()
     async def wildschwein(self, ctx):
         """Gibt dir einen guten Ratschlag für dein Leben :boar:"""
-        await ctx.send("Pass auf Wildschweine auf, sie können zu unliebsamen Begegnungen führen")
+        await ctx.send(
+            "Pass auf Wildschweine auf, sie können zu unliebsamen Begegnungen führen"
+        )
         command_log(ctx, "wildschwein")
 
     # --- CRYPTO ---
     @commands.command()
     async def crypto(self, ctx):
         """Bietet dir die Möglichkeit dieses Projekt zu unterstützen"""
-        crypto = {"Bitcoin": "bc1qmkm5rm2f4dylcf3c5kr630940gtntf9pf9dcwt",
+        crypto = {
+            "Bitcoin": "bc1qmkm5rm2f4dylcf3c5kr630940gtntf9pf9dcwt",
             "Bitcoin Cash": "ltc1qjtdl7ylksmax6zutwvrqhyl7mje56ygck5x6ra",
             "Ethereum": "0x885eE1D7a3bFc1bE0f1c49dD2D0f4f8A43Bb164D",
             "Litecoin": "ltc1qjtdl7ylksmax6zutwvrqhyl7mje56ygck5x6ra",
@@ -107,10 +121,11 @@ class Commands(commands.Cog):
             "Solana": "8KeYwoY8BBumc1qysGSJsyVxc7wLPbn6G8NufzGh67DH",
             "Tezos": "tz1heKjcrTucWJiUMevttkqTTLeRBMkurvCy",
             "Tron": "TUoMo5jJZe9PQYgaM5Ks3nGgVE5XCGhocH",
-            "Waves": "3P7AXSsV2CiXjsUjvbAs4W2eb6xqzqh2hZg"}
+            "Waves": "3P7AXSsV2CiXjsUjvbAs4W2eb6xqzqh2hZg",
+        }
         answer = ""
         for x in crypto:
-            answer +=  f"{x}  >>  {crypto[x]}\n"
+            answer += f"{x}  >>  {crypto[x]}\n"
 
         await ctx.send(answer)
         command_log(ctx, "crypto")
@@ -127,13 +142,17 @@ class Commands(commands.Cog):
             "Jetzt komm ich hier hoch, jetzt guck dir die Scheiße an. ",
             "Ham die Leute einfach keine Lust hier, oder wat?",
             "Du musst ma fragen, ob die... weiß ich nicht soll'n wir nach Hause fahr'n, oder wat?",
-            "Is doch lächerlich, oder?", "Wissen doch, was so'n Kran wiegt, oder?",
+            "Is doch lächerlich, oder?",
+            "Wissen doch, was so'n Kran wiegt, oder?",
             "Junge, jetzt krieg ich jetzt langsam hier... werd ich aber n bisschen wild hier, langsam.",
             "JETZT REICHT'S MIR LANGSAM! HAM DIE KEIN BANDMASS WAT ACHT METER LANG IS!?",
             "Junge, Junge, Junge, Junge, Junge, Junge, Junge, Junge, Junge, Junge!",
-            "Oach Mensch, hör auf!", "Paar Nichtskönner, originale Nichtskönner",
+            "Oach Mensch, hör auf!",
+            "Paar Nichtskönner, originale Nichtskönner",
             "Das is hier ne Baustelle für Vollidioten. Genau solche Vollidioten wie diese Norweger sind. VOLLIDIOTEN. Darum sind die auch nicht in der EU, weil die am Leben vorbeilaufen, diese Spinnerbande.",
-            "Gar nichts zusammenpacken, Ende!", "Können noch nicht mal BANDMASS halten!"]
+            "Gar nichts zusammenpacken, Ende!",
+            "Können noch nicht mal BANDMASS halten!",
+        ]
         answer = kranplatz[rnd.randint(0, len(kranplatz) - 1)]
 
         await ctx.send(answer)
@@ -156,7 +175,9 @@ class Commands(commands.Cog):
         else:
             x1 = (-b + math.sqrt(b * b - 4 * a * c)) / 2 * a
             x2 = (-b - math.sqrt(b * b - 4 * a * c)) / 2 * a
-            await ctx.send(f"Die Lösungen dieser Gleichung sind: \n  x1 = {x1}\n  x2 = {x2}")
+            await ctx.send(
+                f"Die Lösungen dieser Gleichung sind: \n  x1 = {x1}\n  x2 = {x2}"
+            )
 
         command_log(ctx, "mnf")
 
@@ -164,7 +185,7 @@ class Commands(commands.Cog):
     @commands.command()
     async def random(self, ctx):
         """Erhalte eine zufällig Nachricht aus der Datenbank"""
-        lines =  open('random.txt', 'r', encoding='utf-8').read().splitlines()
+        lines = open("random.txt", "r", encoding="utf-8").read().splitlines()
         line_number = rnd.randint(0, len(lines))
         random_line = lines[line_number]
 
@@ -183,7 +204,9 @@ class Commands(commands.Cog):
         random_message = f"{message} ~ {str(ctx.author)[:-5]} ({date})"
         with open("random.txt", "a") as file:
             file.write(f"\n{random_message}")
-        await ctx.send(f"Du hast der Datenbank folgende Nachricht hinzugefügt: \n{message}")
+        await ctx.send(
+            f"Du hast der Datenbank folgende Nachricht hinzugefügt: \n{message}"
+        )
         command_log(ctx, "add", f"and added '{message}'")
 
     # ---JOIN ---
@@ -194,7 +217,11 @@ class Commands(commands.Cog):
         if voice_channel == None:
             await ctx.send("Du befindest dich nicht in einem Voice-Channel")
             command_log(ctx, "join", "but no voice channel was found")
-            error_log(ctx, "join", f"Could not find {ctx.author}s voice channel on {ctx.guild}")
+            error_log(
+                ctx,
+                "join",
+                f"Could not find {ctx.author}s voice channel on {ctx.guild}",
+            )
             return
 
         await voice_channel.connect()
@@ -207,13 +234,19 @@ class Commands(commands.Cog):
         """kurze, aber feine Party"""
 
         dotenv.load_dotenv()
-        ffmpeg =  os.environ.get("ffmpeg")
+        ffmpeg = os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
-            await ctx.send("Du befindest dich nicht in einem Voice-Channel auf diesem Server")
+            await ctx.send(
+                "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
+            )
             command_log(ctx, "hardstyle", "but no voice channel was found")
-            error_log(ctx, "hardstyle", f"Could not find {ctx.author}s voice channel on {ctx.guild}")
+            error_log(
+                ctx,
+                "hardstyle",
+                f"Could not find {ctx.author}s voice channel on {ctx.guild}",
+            )
             return
 
         voice_channel = ctx.author.voice.channel
@@ -224,7 +257,11 @@ class Commands(commands.Cog):
         voice = ctx.guild.voice_client
 
         try:
-            voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source="sounds/lebendiger_fisch.mp3"))
+            voice.play(
+                discord.FFmpegPCMAudio(
+                    executable=ffmpeg, source="sounds/lebendiger_fisch.mp3"
+                )
+            )
         except:
             await ctx.send("Whoops, da gab es wohl einen Fehler D:")
             error_log(ctx, "hardstyle", "Couldn't play sound")
@@ -240,18 +277,22 @@ class Commands(commands.Cog):
         """Tipp: gib deine Nachricht in Anführungszeichen ein :)"""
 
         dotenv.load_dotenv()
-        ffmpeg =  os.environ.get("ffmpeg")
+        ffmpeg = os.environ.get("ffmpeg")
 
         tts = gtts.gTTS(message, lang=language.lower())
-        name = ''.join(rnd.choice(string.ascii_letters) for i in range(12))
-        soundfile = f'sounds/random_sounds/{name}.mp3'
+        name = "".join(rnd.choice(string.ascii_letters) for i in range(12))
+        soundfile = f"sounds/random_sounds/{name}.mp3"
         tts.save(soundfile)
 
         is_voice = ctx.author.voice
         if is_voice == None:
             await ctx.send("Du befindest dich nicht in einem Voice-Channel")
             command_log(ctx, "read", "but no voice channel was found")
-            error_log(ctx, "read", f"Could not join {ctx.author}s voice channel on {ctx.guild}")
+            error_log(
+                ctx,
+                "read",
+                f"Could not join {ctx.author}s voice channel on {ctx.guild}",
+            )
             return
 
         voice_channel = ctx.author.voice.channel
@@ -272,13 +313,19 @@ class Commands(commands.Cog):
         """Ein Junge mit einer gottesgleichen Stimme trällert dir ein Liedchen"""
 
         dotenv.load_dotenv()
-        ffmpeg =  os.environ.get("ffmpeg")
+        ffmpeg = os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
-            await ctx.send("Du befindest dich nicht in einem Voice-Channel auf diesem Server")
+            await ctx.send(
+                "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
+            )
             command_log(ctx, "josua", "but no voice channel was found")
-            error_log(ctx, "josua", f"Could not find {ctx.author}s voice channel on {ctx.guild}")
+            error_log(
+                ctx,
+                "josua",
+                f"Could not find {ctx.author}s voice channel on {ctx.guild}",
+            )
             return
 
         voice_channel = ctx.author.voice.channel

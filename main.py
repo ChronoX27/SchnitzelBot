@@ -11,7 +11,9 @@ status = str(os.getenv("status"))
 prefix = str(os.getenv("prefix"))
 intents = discord.Intents.all()
 
-bot = commands.Bot(command_prefix=prefix, intents=intents, activity=discord.Game(name=status))
+bot = commands.Bot(
+    command_prefix=prefix, intents=intents, activity=discord.Game(name=status)
+)
 
 
 from bot_commands import Commands
@@ -20,6 +22,7 @@ from bot_slashcommands import Slashcommands
 bot.add_cog(Commands(bot))
 bot.add_cog(Slashcommands(bot))
 
+
 @bot.event
 async def on_ready():
     functions.ready(bot)
@@ -27,5 +30,4 @@ async def on_ready():
 
 functions.keep_alive()
 bot_token = str(os.getenv("TOKEN"))
-print(bot_token)
 bot.run(bot_token)
