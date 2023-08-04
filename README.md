@@ -4,7 +4,7 @@
  - [Install ffmpeg](https://www.ffmpeg.org/):
     On Windows copy ffmpeg.exe in the *same folder* as main.py
     On Linux just install ffmepg and change `"ffmpeg.exe"` to `"ffmpeg"` in [.env](.env)
- - Edit `.env` and replace `YOUR.BOT.TOKEN` with your token (you can get a token (here)[https://discord.com/developers/applications])
+ - Edit `.env` and replace `YOUR.BOT.TOKEN` with your token (you can get a token [here](https://discord.com/developers/applications))
  - Install gTTS with `pip install gTTS` to use text-to-speach
 
 ## Start
