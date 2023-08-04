@@ -1,5 +1,6 @@
 import discord
-import json
+import os
+import dotenv
 import math
 import datetime
 import gtts
@@ -15,10 +16,6 @@ class Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         # self._last_member = None
-
-    with open("config.json") as data_file:
-        config_data = json.load(data_file)
-    ffmpeg = config_data["ffmpeg"]
 
     # --- HI ---
     @commands.command(aliases=["hi"])
@@ -209,7 +206,8 @@ class Commands(commands.Cog):
     async def hardstyle(self, ctx):
         """kurze, aber feine Party"""
 
-        ffmpeg = json.load(open("config.json"))["ffmpeg"]
+        dotenv.load_dotenv()
+        ffmpeg =  os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
@@ -241,6 +239,9 @@ class Commands(commands.Cog):
     async def read(self, ctx, message, language="de"):
         """Tipp: gib deine Nachricht in Anführungszeichen ein :)"""
 
+        dotenv.load_dotenv()
+        ffmpeg =  os.environ.get("ffmpeg")
+
         tts = gtts.gTTS(message, lang=language.lower())
         name = ''.join(rnd.choice(string.ascii_letters) for i in range(12))
         soundfile = f'sounds/random_sounds/{name}.mp3'
@@ -260,8 +261,6 @@ class Commands(commands.Cog):
             print(" >> Cant connect to voice")
         voice = ctx.guild.voice_client
 
-        ffmpeg = json.load(open("config.json"))["ffmpeg"]
-
         voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
         voice.source.volume = 1.0
         await ctx.send(f"Ich lese nun: {message}", view=VoiceView())
@@ -271,6 +270,9 @@ class Commands(commands.Cog):
     @commands.command()
     async def josua(self, ctx):
         """Ein Junge mit einer gottesgleichen Stimme trällert dir ein Liedchen"""
+
+        dotenv.load_dotenv()
+        ffmpeg =  os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
@@ -286,7 +288,6 @@ class Commands(commands.Cog):
             print(" >> Already connected to voice")
 
         voice = ctx.guild.voice_client
-        ffmpeg = json.load(open("config.json"))["ffmpeg"]
 
         rickroll = rnd.randint(0, 99)
 

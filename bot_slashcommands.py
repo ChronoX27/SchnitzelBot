@@ -1,5 +1,6 @@
 import discord
-import json
+import os
+import dotenv
 import datetime
 import gtts
 import string
@@ -12,7 +13,6 @@ from views import *
 class Slashcommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
 
     # --- TEST ---
     @commands.slash_command()
@@ -174,7 +174,8 @@ class Slashcommands(commands.Cog):
     async def josua(self, ctx):
         """Ein Junge mit einer gottesgleichen Stimme trällert dir ein Liedchen"""
 
-        ffmpeg = json.load(open("config.json"))["ffmpeg"]
+        dotenv.load_dotenv()
+        ffmpeg =  os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
@@ -218,7 +219,8 @@ class Slashcommands(commands.Cog):
     async def hardstyle(self, ctx):
         """kurze, aber feine Party"""
 
-        ffmpeg = json.load(open("config.json"))["ffmpeg"]
+        dotenv.load_dotenv()
+        ffmpeg =  os.environ.get("ffmpeg")
 
         is_voice = ctx.author.voice
         if is_voice == None:
@@ -249,7 +251,9 @@ class Slashcommands(commands.Cog):
     @commands.slash_command(aliases=["tts"])
     async def read(self, ctx, message, language="de"):
         """Gib die Sprache als optionales Argument ein"""
-        ffmpeg = json.load(open("config.json"))["ffmpeg"]
+
+        dotenv.load_dotenv()
+        ffmpeg =  os.environ.get("ffmpeg")
 
         tts = gtts.gTTS(message, lang=language.lower())
         name = ''.join(rnd.choice(string.ascii_letters) for i in range(12))
