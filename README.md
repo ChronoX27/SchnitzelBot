@@ -9,4 +9,8 @@
 
 ## Start
  - You can start the bot by typing `python main.py` while in the main folder of this project.
- - You might want to run the bot in the background. On Linux you can achieve this by using `nohub` like this: `nohub python3 ProjectFolder/main.py > LogFolder/nohub.log ` 
+ - You might want to run the bot in the background. On Linux you can achieve this by using `nohub` like this: `nohub python3 ProjectFolder/main.py > LogFolder/nohub.log` 
+
+## Usage
+ - You can use slash commands definded in [bot_slashcommands.py](bot_slashcommands.py) with `/command_name`.
+ - You can use prefix commands too. They are definded in [bot_commands.py](bot_commands.py). Watch out to use the prefix definded in `.env`.
