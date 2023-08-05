@@ -1,16 +1,18 @@
 # SchnitzelBot
 ## Requirements
+ - Python 3.8 or above
  - [Install pycord](https://docs.pycord.dev/en/stable/installing.html) (NOT discord.py!)
  - [Install ffmpeg](https://www.ffmpeg.org/):
     On Windows copy ffmpeg.exe in the *same folder* as main.py
-    On Linux just install ffmepg and change `"ffmpeg.exe"` to `"ffmpeg"` in [.env](.env)
- - Edit `.env` and replace `YOUR.BOT.TOKEN` with your token (you can get a token [here](https://discord.com/developers/applications))
+    On Linux just install ffmepg and change `ffmpeg = ffmpeg.exe` to `ffmpeg = ffmpeg` in [.env](.env)
+ - Edit [.env](.env) and replace `YOUR.BOT.TOKEN` with your token (you can get a token [here](https://discord.com/developers/applications))
  - Install gTTS with `pip install gTTS` to use text-to-speach
 
 ## Start
- - You can start the bot by typing `python main.py` while in the main folder of this project.
- - You might want to run the bot in the background. On Linux you can achieve this by using `nohub` like this: `nohub python3 ProjectFolder/main.py > LogFolder/nohub.log` 
+ - You can start the bot by running `python main.py` while in the main folder of this project.
+ - You might want to run the bot in the background. On Linux you can achieve this by using `nohub` like this: `nohub python3 ProjectFolder/main.py > LogFolder/nohub.log`
+ - Change `prefix` for commands and your bots `status` in [.env](.env) as you like
 
 ## Usage
- - You can use slash commands definded in [bot_slashcommands.py](bot_slashcommands.py) with `/command_name`.
- - You can use prefix commands too. They are definded in [bot_commands.py](bot_commands.py). Watch out to use the prefix definded in `.env`.
+ - You can use slash commands definded in [bot_slashcommands.py](bot_slashcommands.py) with `/command_name`
+ - You can use prefix commands too. They are definded in [bot_commands.py](bot_commands.py). Watch out to use the prefix definded in `.env`
