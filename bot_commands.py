@@ -18,8 +18,8 @@ class Commands(commands.Cog):
         # self._last_member = None
 
     # --- HI ---
-    @commands.command(aliases=["hi"])
-    async def hallo(self, ctx):
+    @commands.command(aliases=["hallo"])
+    async def hi(self, ctx):
         """Begrüßt dich"""
         hallo = [
             "Hi",
@@ -64,8 +64,8 @@ class Commands(commands.Cog):
         await ctx.send("", embed=embed)
         command_log(ctx, "about")
 
-    # --- HELP ---
-    @commands.command()  # aliases=["help"])
+    # --- HILFE ---
+    @commands.command()
     async def hilfe(self, ctx):
         """Du erhältst Hilfe"""
         commands = {
@@ -191,23 +191,21 @@ class Commands(commands.Cog):
     # --- MNF ---
     @commands.command()
     async def mnf(self, ctx, arg1, arg2, arg3):
-        """.mnf a b c: Löst die quadratische Gleichung mit a*x² + b*x + c = 0"""
+        """/mnf a b c: Löst die quadratische Gleichung mit a*x² + b*x + c = 0"""
         a = float(arg1)
         b = float(arg2)
         c = float(arg3)
-        await ctx.send(f"a = {a};  b = {b};  c = {c}")
+        equation = f"{a}*x² + {b}*x + {c} = 0"
 
         if (b * b - 4 * a * c) < 0:
-            await ctx.send("Die Gleichung hat keine Lösungen.")
+            await ctx.send(f"Die Gleichung `{equation}` hat keine Lösungen.")
         elif (b * b - 4 * a * c) == 0:
             x = (-b - math.sqrt(b * b - 4 * a * c)) / 2 * a
-            await ctx.send(f"Diese Gleichung hat nur eine Lösung: \n  x = {x}")
+            await ctx.send(f"Die Gleichung `{equation}` hat nur eine Lösung: \n  x = `{x}`")
         else:
             x1 = (-b + math.sqrt(b * b - 4 * a * c)) / 2 * a
             x2 = (-b - math.sqrt(b * b - 4 * a * c)) / 2 * a
-            await ctx.send(
-                f"Die Lösungen dieser Gleichung sind: \n  x1 = {x1}\n  x2 = {x2}"
-            )
+            await ctx.send(f"Die Lösungen der Gleichung `{equation}` sind: \n  x1 = `{x1}`\n  x2 = `{x2}`")
 
         command_log(ctx, "mnf")
 

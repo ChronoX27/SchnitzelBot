@@ -4,6 +4,7 @@ import dotenv
 import datetime
 import gtts
 import string
+import math
 import random as rnd
 
 from discord.ext import commands
@@ -187,7 +188,25 @@ class Slashcommands(commands.Cog):
         command_log(ctx, "/kran")
 
     # --- MNF ---
-    # TODO: MNF
+    @commands.slash_command()
+    async def mnf(self, ctx, arg1, arg2, arg3):
+        """/mnf a b c: Löst die quadratische Gleichung mit a*x² + b*x + c = 0"""
+        a = float(arg1)
+        b = float(arg2)
+        c = float(arg3)
+        equation = f"{a}*x² + {b}*x + {c} = 0"
+
+        if (b * b - 4 * a * c) < 0:
+            await ctx.respond(f"Die Gleichung `{equation}` hat keine Lösungen.")
+        elif (b * b - 4 * a * c) == 0:
+            x = (-b - math.sqrt(b * b - 4 * a * c)) / 2 * a
+            await ctx.respond(f"Die Gleichung `{equation}` hat nur eine Lösung: \n  x = `{x}`")
+        else:
+            x1 = (-b + math.sqrt(b * b - 4 * a * c)) / 2 * a
+            x2 = (-b - math.sqrt(b * b - 4 * a * c)) / 2 * a
+            await ctx.respond(f"Die Lösungen der Gleichung `{equation}` sind: \n  x1 = `{x1}`\n  x2 = `{x2}`")
+
+        command_log(ctx, "/mnf")
 
     # --- RANDOM ---
     @commands.slash_command()
