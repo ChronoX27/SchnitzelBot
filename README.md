@@ -1,12 +1,11 @@
 # SchnitzelBot
 ## Requirements
  - Python 3.8 or above
- - [Install pycord](https://docs.pycord.dev/en/stable/installing.html) (NOT discord.py!)
+ - Install the required python modules by running `pip install -r requirements.txt` (hope this works)
  - [Install ffmpeg](https://www.ffmpeg.org/):
     On Windows copy ffmpeg.exe in the *same folder* as main.py
     On Linux just install ffmepg and change `ffmpeg = ffmpeg.exe` to `ffmpeg = ffmpeg` in [.env](.env)
  - Edit [.env](.env) and replace `YOUR.BOT.TOKEN` with your token (you can get a token [here](https://discord.com/developers/applications))
- - Install gTTS with `pip install gTTS` to use text-to-speach
 
 ## Start
  - You can start the bot by running `python main.py` while in the main folder of this project.
