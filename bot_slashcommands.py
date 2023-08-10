@@ -28,7 +28,32 @@ class Slashcommands(commands.Cog):
         await ctx.respond("Touch that button!", view=MyView())
         command_log(ctx, "/button")
 
-    # --- HAllO ---
+    # --- TODO: ABOUT ---
+    @commands.slash_command()
+    async def about(self, ctx):
+        embed = discord.Embed(
+            title="SchnitzelBot",
+            description="Always there if you need a Schnitzel \N{CUT OF MEAT}",
+            color=discord.Colour.blurple()
+        )
+        embed.add_field(
+            name="About this bot",
+            value="A small Discord Bot with text and voice commands to experiment and have fun with friends.",
+            inline=False
+        )
+
+        embed.add_field(name="Author", value="Developed by ChronoX [DM](https://discordapp.com/users/716593329101602889)", inline=True)
+        embed.add_field(name="GitHub", value="[View or clone the code](https://github.com/ChronoX27/SchnitzelBot)", inline=True)
+
+        embed.set_thumbnail(url="images/schnitzel.jpg")
+        # embed.set_footer(text="Footer! No markdown here.")  # footers can have icons too
+        # embed.set_author(name="Pycord Team", icon_url="https://example.com/link-to-my-image.png")
+        # embed.set_thumbnail(url="https://example.com/link-to-my-thumbnail.png")
+        # embed.set_image(url="https://example.com/link-to-my-banner.png")
+        await ctx.respond("", embed=embed)
+        command_log(ctx, "/about")
+
+    # --- HALLO ---
     @commands.slash_command(alias=["hi"])
     async def hallo(self, ctx):
         """Begrüßt dich"""
