@@ -41,6 +41,27 @@ class Commands(commands.Cog):
         await ctx.send("Funktioniert")
         command_log(ctx, "test")
 
+    @commands.command()
+    async def about(self, ctx):
+        embed = discord.Embed(
+            title="SchnitzelBot",
+            description="Always there if you need a Schnitzel \N{CUT OF MEAT}",
+            color=discord.Colour.blurple()
+        )
+        
+        embed.add_field(
+            name="About this bot",
+            value="A small Discord Bot with text and voice commands to experiment and have fun with friends.", 
+            inline=False
+        )
+
+        embed.add_field(name="Author", value="Developed by ChronoX. [DM me](https://discordapp.com/users/716593329101602889)", inline=True)
+        embed.add_field(name="GitHub", value="[View or clone the code](https://github.com/ChronoX27/SchnitzelBot)", inline=True)
+
+        embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/2eb14da7458f04cd73b0ad470d1d176e5268bc7a/images/schnitzel.jpg?raw=true")
+        await ctx.send("", embed=embed)
+        command_log(ctx, "about")
+
     # --- HELP ---
     @commands.command()  # aliases=["help"])
     async def hilfe(self, ctx):
