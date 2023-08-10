@@ -31,6 +31,7 @@ class Slashcommands(commands.Cog):
     # --- ABOUT ---
     @commands.slash_command()
     async def about(self, ctx):
+        """kleine Info über den Bot"""
         embed = discord.Embed(
             title="SchnitzelBot",
             description="Always there if you need a Schnitzel \N{CUT OF MEAT}",
@@ -46,7 +47,7 @@ class Slashcommands(commands.Cog):
         embed.add_field(name="Author", value="Developed by ChronoX. [DM me](https://discordapp.com/users/716593329101602889)", inline=True)
         embed.add_field(name="GitHub", value="[View or clone the code](https://github.com/ChronoX27/SchnitzelBot)", inline=True)
 
-        embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/2eb14da7458f04cd73b0ad470d1d176e5268bc7a/images/schnitzel.jpg?raw=true")
+        embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/schnitzel.jpg?raw=true")
         await ctx.respond("", embed=embed)
         command_log(ctx, "/about")
 
@@ -105,7 +106,7 @@ class Slashcommands(commands.Cog):
             description=f"„*{quote}*“\n ~ {author}",
             color=discord.Colour.from_rgb(107, 189, 214)
         )
-        quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/2eb14da7458f04cd73b0ad470d1d176e5268bc7a/images/quote.jpg?raw=true")
+        quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
         await ctx.respond("", embed=quote_embed)
         command_log(ctx, "/quote", f"and got a quote by {author}")
 
