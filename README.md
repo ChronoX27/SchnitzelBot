@@ -5,7 +5,7 @@
  - [Install ffmpeg](https://www.ffmpeg.org/):
     On Windows copy ffmpeg.exe in the *same folder* as main.py
     On Linux just install ffmepg and change `ffmpeg = ffmpeg.exe` to `ffmpeg = ffmpeg` in [.env](.env)
- - Edit [.env](.env) and replace `YOUR.BOT.TOKEN` with your token (you can get a token [here](https://discord.com/developers/applications))
+ - Edit [.env](.env) and replace `YOUR.BOT.TOKEN` with your token (you can get a token [here](https://discord.com/developers/applications)) TIP: A valid token starts with M, N or O and has 2 dots.
 
 ## Start
  - You can start the bot by running `python main.py` while in the main folder of this project.
@@ -14,4 +14,4 @@
 
 ## Usage
  - You can use slash commands definded in [bot_slashcommands.py](bot_slashcommands.py) with `/command_name`
- - You can use prefix commands too. They are definded in [bot_commands.py](bot_commands.py). Watch out to use the prefix definded in `.env`
+ - You can use prefix commands too. They are definded in [bot_commands.py](bot_commands.py). Watch out to use the prefix definded in `.env` (deafault is `.command`)
