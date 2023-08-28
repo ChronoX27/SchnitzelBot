@@ -7,6 +7,8 @@ import string
 import math
 import random as rnd
 
+import time
+
 from discord.ext import commands
 from functions import command_log, error_log, get_quote
 from views import *
@@ -104,12 +106,12 @@ class Slashcommands(commands.Cog):
         
         quote_embed = discord.Embed(
             title="\N{Sparkles} Quote Time \N{sparkles}",
-            description=f"„*{quote}*“\n ~ {author}",
+            description=f"„*{quote}*“\n\n ~ {author}",
             color=discord.Colour.from_rgb(107, 189, 214)
         )
         quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
         await ctx.respond("", embed=quote_embed)
-        command_log(ctx, "/quote", f"and got a quote by {author}")
+        command_log(ctx, "/quote", f"and got a quote from {author}")
 
     # --- SCHNITZEL ---
     @commands.slash_command(aliases=["steak"])
@@ -237,8 +239,10 @@ class Slashcommands(commands.Cog):
     # --- JOIN ---
     @commands.slash_command()
     async def join(self, ctx):
-        """Der Schnitzelbot tritt deinem Voicechannel bei"""
+        """Der SchnitzelBot tritt deinem Voicechannel bei"""
+
         voice_channel = ctx.author.voice.channel
+
         if voice_channel == None:
             await ctx.send("Du befindest dich nicht in einem Voice-Channel")
             command_log(ctx, "/join", "but no voice channel was found")
@@ -252,20 +256,11 @@ class Slashcommands(commands.Cog):
     async def josua(self, ctx):
         """Ein Junge mit einer gottesgleichen Stimme trällert dir ein Liedchen"""
 
-        dotenv.load_dotenv()
-        ffmpeg = os.environ.get("ffmpeg")
-
         is_voice = ctx.author.voice
         if is_voice == None:
-            await ctx.respond(
-                "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
-            )
+            await ctx.respond("Du befindest dich nicht in einem Voice-Channel auf diesem Server")
             command_log(ctx, "/josua", "but no voice channel was found")
-            error_log(
-                ctx,
-                "/josua",
-                f"Could not find {ctx.author}s voice channel on {ctx.guild}",
-            )
+            error_log(ctx, "/josua", f"Could not find {ctx.author}s voice channel on {ctx.guild}")
             return
 
         voice_channel = ctx.author.voice.channel
@@ -275,7 +270,6 @@ class Slashcommands(commands.Cog):
             print(" >> Already connected to voice")
 
         voice = ctx.guild.voice_client
-
         rickroll = rnd.randint(0, 99)
 
         if rickroll == 0:
@@ -286,6 +280,9 @@ class Slashcommands(commands.Cog):
             soundfile = "sounds/josua.mp3"
             message = "JOOOOSUA, aufstehen, es ist null Uhr nachts!"
             special_message = None
+
+        dotenv.load_dotenv()
+        ffmpeg = os.environ.get("ffmpeg")
 
         try:
             voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
@@ -303,20 +300,11 @@ class Slashcommands(commands.Cog):
     async def hardstyle(self, ctx):
         """kurze, aber feine Party"""
 
-        dotenv.load_dotenv()
-        ffmpeg = os.environ.get("ffmpeg")
-
         is_voice = ctx.author.voice
         if is_voice == None:
-            await ctx.respond(
-                "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
-            )
+            await ctx.respond("Du befindest dich nicht in einem Voice-Channel auf diesem Server")
             command_log(ctx, "/hardstyle", "but no voice channel was found")
-            error_log(
-                ctx,
-                "/hardstyle",
-                f"Could not find {ctx.author}s voice channel on {ctx.guild}",
-            )
+            error_log(ctx, "/hardstyle", f"Could not find {ctx.author}s voice channel on {ctx.guild}")
             return
 
         voice_channel = ctx.author.voice.channel
@@ -324,14 +312,14 @@ class Slashcommands(commands.Cog):
             await voice_channel.connect()
         except:
             print(" >> Already connected to voice")
+
         voice = ctx.guild.voice_client
 
+        dotenv.load_dotenv()
+        ffmpeg = os.environ.get("ffmpeg")
+
         try:
-            voice.play(
-                discord.FFmpegPCMAudio(
-                    executable=ffmpeg, source="sounds/lebendiger_fisch.mp3"
-                )
-            )
+            voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source="sounds/lebendiger_fisch.mp3"))
         except:
             await ctx.respond("Whoops, da gab es wohl einen Fehler D:")
             error_log(ctx, "/hardstyle", "Couldn't play sound")
@@ -346,6 +334,13 @@ class Slashcommands(commands.Cog):
     async def read(self, ctx, message, language="de"):
         """Gib die Sprache als optionales Argument ein"""
 
+        is_voice = ctx.author.voice
+        if is_voice == None:
+            await ctx.respond("Du befindest dich nicht in einem Voice-Channel")
+            command_log(ctx, "/read", "but no voice channel was found")
+            error_log(ctx, "/read", f"Could not join {ctx.author}s voice channel on {ctx.guild}",)
+            return
+        
         dotenv.load_dotenv()
         ffmpeg = os.environ.get("ffmpeg")
 
@@ -354,28 +349,71 @@ class Slashcommands(commands.Cog):
         soundfile = f"sounds/random_sounds/{name}.mp3"
         tts.save(soundfile)
 
-        is_voice = ctx.author.voice
-        if is_voice == None:
-            await ctx.respond("Du befindest dich nicht in einem Voice-Channel")
-            command_log(ctx, "/read", "but no voice channel was found")
-            error_log(
-                ctx,
-                "/read",
-                f"Could not join {ctx.author}s voice channel on {ctx.guild}",
-            )
-            return
-
         voice_channel = ctx.author.voice.channel
         try:
             await voice_channel.connect()
         except:
             print(" >> Cant connect to voice")
+
         voice = ctx.guild.voice_client
 
         voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
         voice.source.volume = 1.0
         await ctx.respond(f"Ich lese nun: {message}", view=VoiceView())
         command_log(ctx, "/read", f"and read '{message}' in {language}")
+
+    # --- READQUOTE ---
+    @commands.slash_command()
+    async def readquote(self, ctx):
+        """Du erhältst ein sehr inspirierendes Zitat"""
+
+        # Checks if voice is ok
+        is_voice = ctx.author.voice
+        if is_voice == None:
+            await ctx.respond("Du befindest dich nicht in einem Voice-Channel")
+            command_log(ctx, "/readquote", "but no voice channel was found")
+            error_log(ctx, "/readquote", f"Could not join {ctx.author}s voice channel on {ctx.guild}")
+            return
+
+        voice_channel = ctx.author.voice.channel
+        try:
+            await voice_channel.connect()
+        except:
+            print(" >> Can't connect to voice")
+
+
+        quote, author = get_quote()
+
+        quote_embed = discord.Embed(
+            title="\N{Sparkles} Quote Time \N{sparkles}",
+            description=f"„*{quote}*“\n\n ~ {author}",
+            color=discord.Colour.from_rgb(107, 189, 214)
+        )
+        quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
+        
+
+        tts = gtts.gTTS(f"{author} said:  {quote}", lang="en")
+
+        filename = author + "".join(rnd.choice("0123456789") for i in range(3))
+        soundfile = f"sounds/quotes/{filename}.mp3"
+        tts.save(soundfile)
+
+
+        dotenv.load_dotenv()
+        ffmpeg = os.environ.get("ffmpeg")
+
+        voice = ctx.guild.voice_client
+        try:
+            voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
+        except:
+            await ctx.respond("Whoops, da gab es wohl einen Fehler D:")
+            error_log(ctx, "/readquote", "Couldn't play sound")
+            command_log(ctx, "/readquote", "but an error occured while playing a sound")
+            return
+
+
+        await ctx.respond("", embed=quote_embed, view=VoiceView())
+        command_log(ctx, "/readquote", f"quote saved to {soundfile})")
 
     # --- LEAVE ---
     @commands.slash_command(aliases=["disconnect"])

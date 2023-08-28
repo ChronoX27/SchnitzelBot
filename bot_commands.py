@@ -105,12 +105,12 @@ class Commands(commands.Cog):
         
         quote_embed = discord.Embed(
             title="\N{Sparkles} Quote Time \N{sparkles}",
-            description=f"„*{quote}*“\n ~ {author}",
+            description=f"„*{quote}*“\n\n ~ {author}",
             color=discord.Colour.from_rgb(107, 189, 214)
         )        
         quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
-        await ctx.respond("", embed=quote_embed)
-        command_log(ctx, "quote", f"and got a quote by {author}")
+        await ctx.send("", embed=quote_embed)
+        command_log(ctx, "quote", f"and got a quote from {author}")
 
     # --- SCHNITZEL ---
     @commands.command(aliases=["steak"])
@@ -334,6 +334,59 @@ class Commands(commands.Cog):
         voice.source.volume = 1.0
         await ctx.send(f"Ich lese nun: {message}", view=VoiceView())
         command_log(ctx, "read", f"and read '{message}' in {language}")
+    
+    # --- READQUOTE ---
+    @commands.command()
+    async def readquote(self, ctx):
+        """Du erhältst ein sehr inspirierendes Zitat"""
+
+        # Checks if voice is ok
+        is_voice = ctx.author.voice
+        if is_voice == None:
+            await ctx.send("Du befindest dich nicht in einem Voice-Channel")
+            command_log(ctx, "readquote", "but no voice channel was found")
+            error_log(ctx, "readquote", f"Could not join {ctx.author}s voice channel on {ctx.guild}")
+            return
+
+        voice_channel = ctx.author.voice.channel
+        try:
+            await voice_channel.connect()
+        except:
+            print(" >> Can't connect to voice")
+
+
+        quote, author = get_quote()
+
+        quote_embed = discord.Embed(
+            title="\N{Sparkles} Quote Time \N{sparkles}",
+            description=f"„*{quote}*“\n\n ~ {author}",
+            color=discord.Colour.from_rgb(107, 189, 214)
+        )
+        quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
+        
+
+        tts = gtts.gTTS(f"{author} said:  {quote}", lang="en")
+
+        filename = author + "".join(rnd.choice("0123456789") for i in range(3))
+        soundfile = f"sounds/quotes/{filename}.mp3"
+        tts.save(soundfile)
+
+
+        dotenv.load_dotenv()
+        ffmpeg = os.environ.get("ffmpeg")
+
+        voice = ctx.guild.voice_client
+        try:
+            voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
+        except:
+            await ctx.send("Whoops, da gab es wohl einen Fehler D:")
+            error_log(ctx, "readquote", "Couldn't play sound")
+            command_log(ctx, "readquote", "but an error occured while playing a sound")
+            return
+
+
+        await ctx.send("", embed=quote_embed, view=VoiceView())
+        command_log(ctx, "readquote", f"quote saved to {soundfile})")
 
     # --- JOSUA ---
     @commands.command()
