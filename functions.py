@@ -56,7 +56,6 @@ app = Flask("")
 
 @app.route("/")
 def home():
-    # file =  open('index.html', 'r')
     website = open("index.html", "r").read()
     return website
 

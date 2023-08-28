@@ -1,6 +1,6 @@
 import discord
 
-# ----------- VIEWS -----------
+# --- MY VIEW ---
 class MyView(discord.ui.View):
     @discord.ui.button(label="click me!", style=discord.ButtonStyle.primary)
     async def button_callback(self, Button, interaction):
@@ -9,6 +9,7 @@ class MyView(discord.ui.View):
 
 # --- VOICE VIEW ---
 class VoiceView(discord.ui.View):
+    # TODO: Why does it only show one button?!?!
     @discord.ui.button(label="Leave", row=0, style=discord.ButtonStyle.primary)
     async def button_callback(self, button, interaction):
         voice_client = interaction.guild.voice_client
@@ -30,4 +31,3 @@ class Leave(discord.ui.View):
         await voice_client.disconnect()
         await interaction.response.send_message("Bye Bye :wave:")
         print(" >> left the voice chat")
-
