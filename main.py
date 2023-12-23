@@ -1,3 +1,5 @@
+from bot_slashcommands import Slashcommands
+from bot_commands import Commands
 import dotenv
 import os
 import discord
@@ -15,9 +17,6 @@ bot = commands.Bot(
     command_prefix=prefix, intents=intents, activity=discord.Game(name=status)
 )
 
-
-from bot_commands import Commands
-from bot_slashcommands import Slashcommands
 
 bot.add_cog(Commands(bot))
 bot.add_cog(Slashcommands(bot))

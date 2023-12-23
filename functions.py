@@ -44,7 +44,8 @@ def command_log(message, command, special_message=None):
 def error_log(message, command, error_message):
     author = message.author
     date = str(datetime.datetime.now())[:-7]
-    log_msg = f"[{date}] ERROR while {author} was using {command}: {error_message} "
+    log_msg = f"[{date}] ERROR while {author} was using {command}:\
+          {error_message}"
 
     print(log_msg)
     with open("log.txt", "a") as myfile:
@@ -54,13 +55,16 @@ def error_log(message, command, error_message):
 # --- KEEP ALIVE ---
 app = Flask("")
 
+
 @app.route("/")
 def home():
     website = open("index.html", "r").read()
     return website
 
+
 def run():
     app.run(host="0.0.0.0", port=7777)
+
 
 def keep_alive():
     t = Thread(target=run)
