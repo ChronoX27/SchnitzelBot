@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  bot:
+    image: schnitzel:latest
+    container_name: discord-bot
+    volumes:
+      - /usr/src/schnitzel:/home/pi/DiscordBot:rw
+
+volumes:
+  bot:
