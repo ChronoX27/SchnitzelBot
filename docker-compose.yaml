@@ -4,7 +4,7 @@ services:
     image: schnitzel:latest
     container_name: discord-bot
     volumes:
-      - /home/pi/DiscordBot:/usr/src/schnitzel:rw
+      - /path/to/SchnitzelBot:/usr/src/schnitzel
 
 volumes:
   bot:
