@@ -1,0 +1,10 @@
+__pycache__
+images/*
+sounds/random_sounds/*
+sounds/quotes/*
+
+
+.gitignore
+docker-compose.yaml
+Dockerfile
+log.txt
