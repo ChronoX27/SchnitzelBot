@@ -1,8 +1,6 @@
 import requests
 import json
 import datetime
-from flask import Flask
-from threading import Thread
 
 
 # --- READY ---
@@ -50,22 +48,3 @@ def error_log(message, command, error_message):
     print(log_msg)
     with open("log.txt", "a") as myfile:
         myfile.write("\n" + log_msg)
-
-
-# --- KEEP ALIVE ---
-app = Flask("")
-
-
-@app.route("/")
-def home():
-    website = open("index.html", "r").read()
-    return website
-
-
-def run():
-    app.run(host="0.0.0.0", port=7777)
-
-
-def keep_alive():
-    t = Thread(target=run)
-    t.start()
