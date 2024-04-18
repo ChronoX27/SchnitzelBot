@@ -10,8 +10,9 @@
 ## Start
  - You can start the bot by running `python main.py` while in the main folder of this project.
  - You might want to run the bot in the background. On Linux you can achieve this by using `nohub` like this: `nohub python3 ProjectFolder/main.py > LogFolder/nohub.log`
- - If you want to use docker, you can build the container with `sudo docker build -t schnitzel:latest .` and run it with `sudo docker run -d --rm --name discord-bot schnitzel:latest` (docker compose coming soon)
+ - If you want to use docker, you can build the container with `sudo docker build -t schnitzel:latest .` and run it `sudo docker compose up -d` (you might need to change the folder of the volume)
  - Change `prefix` for commands and your bots `status` in [.env](.env) as you like
+ - Docker Tip: add the aliases from [bash_aliases.sh](bash_aliases.sh) to make your life easier :)
 
 ## Usage
  - You can use slash commands definded in [bot_slashcommands.py](bot_slashcommands.py) with `/command_name`
