@@ -9,13 +9,12 @@ import random as rnd
 
 from discord.ext import commands
 from functions import command_log, error_log, get_quote
-from views import *
+import views
 
 
 class Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        # self._last_member = None
 
     # --- HI ---
     @commands.command(aliases=["hallo"])
@@ -50,17 +49,27 @@ class Commands(commands.Cog):
             description="Always there if you need a Schnitzel \N{CUT OF MEAT}",
             color=discord.Colour.blurple()
         )
-        
+
         embed.add_field(
             name="About this bot",
-            value="A small Discord Bot with text and voice commands to experiment and have fun with friends.", 
+            value="A small Discord Bot with text and voice commands to \
+                experiment and have fun with friends.",
             inline=False
         )
 
-        embed.add_field(name="Author", value="Developed by ChronoX. [DM me](https://discordapp.com/users/716593329101602889)", inline=True)
-        embed.add_field(name="GitHub", value="[View or clone the code](https://github.com/ChronoX27/SchnitzelBot)", inline=True)
+        embed.add_field(
+            name="Author", value="Developed by ChronoX. [DM me]\
+                (https://discordapp.com/users/716593329101602889)",
+            inline=True)
+        embed.add_field(
+            name="GitHub",
+            value="[View or clone the code]\
+                (https://github.com/ChronoX27/SchnitzelBot)",
+            inline=True)
 
-        embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/schnitzel.jpg?raw=true")
+        embed.set_thumbnail(
+            url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/\
+                schnitzel.jpg?raw=true")
         await ctx.send("", embed=embed)
         command_log(ctx, "about")
 
@@ -102,13 +111,14 @@ class Commands(commands.Cog):
     async def quote(self, ctx):
         """Du erhältst ein sehr inspirierendes Zitat"""
         quote, author = get_quote()
-        
+
         quote_embed = discord.Embed(
             title="\N{Sparkles} Quote Time \N{sparkles}",
             description=f"„*{quote}*“\n\n ~ {author}",
             color=discord.Colour.from_rgb(107, 189, 214)
-        )        
-        quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
+        )
+        quote_embed.set_thumbnail(
+            url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
         await ctx.send("", embed=quote_embed)
         command_log(ctx, "quote", f"and got a quote from {author}")
 
@@ -242,7 +252,7 @@ class Commands(commands.Cog):
     async def join(self, ctx):
         """Der Schnitzelbot tritt deinem Voicechannel bei"""
         voice_channel = ctx.author.voice.channel
-        if voice_channel == None:
+        if voice_channel is None:
             await ctx.send("Du befindest dich nicht in einem Voice-Channel")
             command_log(ctx, "join", "but no voice channel was found")
             error_log(
@@ -253,7 +263,7 @@ class Commands(commands.Cog):
             return
 
         await voice_channel.connect()
-        await ctx.send("Hallöchen :wave:", view=Leave())
+        await ctx.send("Hallöchen :wave:", view=views.Leave())
         command_log(ctx, "join")
 
     # --- HARDSTYLE ---
@@ -264,8 +274,8 @@ class Commands(commands.Cog):
         dotenv.load_dotenv()
         ffmpeg = os.environ.get("ffmpeg")
 
-        is_voice = ctx.author.voice
-        if is_voice == None:
+        voice_channel = ctx.author.voice.channel
+        if voice_channel is None:
             await ctx.send(
                 "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
             )
@@ -277,7 +287,7 @@ class Commands(commands.Cog):
             )
             return
 
-        voice_channel = ctx.author.voice.channel
+        # voice_channel = ctx.author.voice.channel
         try:
             await voice_channel.connect()
         except:
@@ -293,10 +303,11 @@ class Commands(commands.Cog):
         except:
             await ctx.send("Whoops, da gab es wohl einen Fehler D:")
             error_log(ctx, "hardstyle", "Couldn't play sound")
-            command_log(ctx, "hardstyle", "but an error occured while playing a sound")
+            command_log(ctx, "hardstyle",
+                        "but an error occured while playing a sound")
             return
 
-        await ctx.send("Are you readyyyyy? Let's go!", view=VoiceView())
+        await ctx.send("Are you readyyyyy? Let's go!", view=views.VoiceView())
         command_log(ctx, "hardstyle")
 
     # --- READ ---
@@ -312,8 +323,8 @@ class Commands(commands.Cog):
         soundfile = f"sounds/random_sounds/{name}.mp3"
         tts.save(soundfile)
 
-        is_voice = ctx.author.voice
-        if is_voice == None:
+        voice_channel = ctx.author.voice.channel
+        if voice_channel is None:
             await ctx.send("Du befindest dich nicht in einem Voice-Channel")
             command_log(ctx, "read", "but no voice channel was found")
             error_log(
@@ -323,7 +334,7 @@ class Commands(commands.Cog):
             )
             return
 
-        voice_channel = ctx.author.voice.channel
+        # voice_channel = ctx.author.voice.channel
         try:
             await voice_channel.connect()
         except:
@@ -332,28 +343,27 @@ class Commands(commands.Cog):
 
         voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
         voice.source.volume = 1.0
-        await ctx.send(f"Ich lese nun: {message}", view=VoiceView())
+        await ctx.send(f"Ich lese nun: {message}", view=views.VoiceView())
         command_log(ctx, "read", f"and read '{message}' in {language}")
-    
+
     # --- READQUOTE ---
     @commands.command()
-    async def readquote(self, ctx):
+    async def read_quote(self, ctx):
         """Du erhältst ein sehr inspirierendes Zitat"""
 
-        # Checks if voice is ok
-        is_voice = ctx.author.voice
-        if is_voice == None:
+        voice_channel = ctx.author.voice.channel
+        if voice_channel is None:
             await ctx.send("Du befindest dich nicht in einem Voice-Channel")
-            command_log(ctx, "readquote", "but no voice channel was found")
-            error_log(ctx, "readquote", f"Could not join {ctx.author}s voice channel on {ctx.guild}")
+            command_log(ctx, "read_quote", "but no voice channel was found")
+            error_log(
+                ctx, "read_quote", f"Could not join {ctx.author}s voice channel on {ctx.guild}")
             return
 
-        voice_channel = ctx.author.voice.channel
+        # voice_channel = ctx.author.voice.channel
         try:
             await voice_channel.connect()
         except:
             print(" >> Can't connect to voice")
-
 
         quote, author = get_quote()
 
@@ -362,8 +372,8 @@ class Commands(commands.Cog):
             description=f"„*{quote}*“\n\n ~ {author}",
             color=discord.Colour.from_rgb(107, 189, 214)
         )
-        quote_embed.set_thumbnail(url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
-        
+        quote_embed.set_thumbnail(
+            url="https://github.com/ChronoX27/SchnitzelBot/blob/main/images/quote.jpg?raw=true")
 
         tts = gtts.gTTS(f"{author} said:  {quote}", lang="en")
 
@@ -371,22 +381,22 @@ class Commands(commands.Cog):
         soundfile = f"sounds/quotes/{filename}.mp3"
         tts.save(soundfile)
 
-
         dotenv.load_dotenv()
         ffmpeg = os.environ.get("ffmpeg")
 
         voice = ctx.guild.voice_client
         try:
-            voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
+            voice.play(discord.FFmpegPCMAudio(
+                executable=ffmpeg, source=soundfile))
         except:
             await ctx.send("Whoops, da gab es wohl einen Fehler D:")
-            error_log(ctx, "readquote", "Couldn't play sound")
-            command_log(ctx, "readquote", "but an error occured while playing a sound")
+            error_log(ctx, "read_quote", "Couldn't play sound")
+            command_log(ctx, "read_quote",
+                        "but an error occured while playing a sound")
             return
 
-
-        await ctx.send("", embed=quote_embed, view=VoiceView())
-        command_log(ctx, "readquote", f"quote saved to {soundfile})")
+        await ctx.send("", embed=quote_embed, view=views.VoiceView())
+        command_log(ctx, "read_quote", f"quote saved to {soundfile})")
 
     # --- JOSUA ---
     @commands.command()
@@ -396,8 +406,8 @@ class Commands(commands.Cog):
         dotenv.load_dotenv()
         ffmpeg = os.environ.get("ffmpeg")
 
-        is_voice = ctx.author.voice
-        if is_voice == None:
+        voice_channel = ctx.author.voice.channel
+        if voice_channel is None:
             await ctx.send(
                 "Du befindest dich nicht in einem Voice-Channel auf diesem Server"
             )
@@ -409,7 +419,7 @@ class Commands(commands.Cog):
             )
             return
 
-        voice_channel = ctx.author.voice.channel
+        # voice_channel = ctx.author.voice.channel
         try:
             await voice_channel.connect()
         except:
@@ -420,23 +430,25 @@ class Commands(commands.Cog):
         rickroll = rnd.randint(0, 99)
 
         if rickroll == 0:
-            soundfile = "sounds/ricky.mp3"
-            message = "F"
-            special_message = "and got rickrolled"
+            soundfile, message, special_message = "sounds/ricky.mp3", "F", "and got rickrolled"
+            # message = "F"
+            # special_message = "and got rickrolled"
         else:
-            soundfile = "sounds/josua.mp3"
-            message = "JOOOOSUA, aufstehen, es ist null Uhr nachts!"
-            special_message = None
+            soundfile = "sounds/josua.mp3", "JOOOOSUA, aufstehen, es ist null Uhr nachts!", None
+            # message = "JOOOOSUA, aufstehen, es ist null Uhr nachts!"
+            # special_message = None
 
         try:
-            voice.play(discord.FFmpegPCMAudio(executable=ffmpeg, source=soundfile))
+            voice.play(discord.FFmpegPCMAudio(
+                executable=ffmpeg, source=soundfile))
         except:
             await ctx.send("Whoops, da gab es wohl einen Fehler D:")
             error_log(ctx, "josua", "Couldn't play sound")
-            command_log(ctx, "josua", "but an error occured while playing a sound")
+            command_log(
+                ctx, "josua", "but an error occured while playing a sound")
             return
 
-        await ctx.send(message, view=VoiceView())
+        await ctx.send(message, view=views.VoiceView())
         command_log(ctx, "josua", special_message)
 
     # --- LEAVE ---

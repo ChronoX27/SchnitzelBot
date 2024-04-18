@@ -45,6 +45,6 @@ def error_log(message, command, error_message):
     log_msg = f"[{date}] ERROR while {author} was using {command}:\
           {error_message}"
 
-    print(log_msg)
-    with open("log.txt", "a") as myfile:
+    # print(log_msg)
+    with open("bot.log", "a") as myfile:
         myfile.write("\n" + log_msg)
